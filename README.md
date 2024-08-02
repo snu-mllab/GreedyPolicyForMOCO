@@ -1,5 +1,5 @@
 # Greedy Policy for MOCO
-Official PyTorch implementation of "Training Greedy Policy for Proposal Batch Selection in Expensive Multi-Objective Combinatorial Optimization", published at **ICML'24**
+Official PyTorch implementation of "Training Greedy Policy for Proposal Batch Selection in Expensive Multi-Objective Combinatorial Optimization", published at **ICML'24**. This code is built on top of [LaMBO repo](https://github.com/samuelstanton/lambo) and [MOGFL repo](https://github.com/MJ10/mo_gfn/tree/4993a6107a0632ac9baf2b930c9399306b530e37)
 
 [**Paper**](https://arxiv.org/abs/2406.14876) 
 
@@ -85,3 +85,33 @@ Below are the information about machine that authors used.
 * nvcc(CUDA): 12.1
 * CPU: AMD EPYC 7402 24-Core Processor
 * GPU: NVIDIA GeForce RTX 3090 GPU
+
+
+## Citation
+
+```
+@inproceedings{lee24greedy,
+      title={Training Greedy Policy for Proposal Batch Selection in Expensive Multi-Objective Combinatorial Optimization},
+      author={Lee, Deokjae and Song, Hyun Oh and Cho, Kyunghyun},
+      booktitle = {International Conference on Machine Learning (ICML)},
+      year={2024}
+}
+
+@inproceedings{jain2023multi,
+  title={Multi-objective gflownets},
+  author={Jain, Moksh and Raparthy, Sharath Chandra and Hern{\'a}ndez-Garc{\i}́a, Alex and Rector-Brooks, Jarrid and Bengio, Yoshua and Miret, Santiago and Bengio, Emmanuel},
+  booktitle={International Conference on Machine Learning},
+  pages={14631--14653},
+  year={2023},
+  organization={PMLR}
+}
+
+@inproceedings{stanton2022accelerating,
+  title={Accelerating bayesian optimization for biological sequence design with denoising autoencoders},
+  author={Stanton, Samuel and Maddox, Wesley and Gruver, Nate and Maffettone, Phillip and Delaney, Emily and Greenside, Peyton and Wilson, Andrew Gordon},
+  booktitle={International Conference on Machine Learning},
+  pages={20459--20478},
+  year={2022},
+  organization={PMLR}
+}
+```
