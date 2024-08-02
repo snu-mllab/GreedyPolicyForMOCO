@@ -65,12 +65,15 @@ class RandHill(BaseAlgorithm):
         
         steps = 0
 
+        if 'Aptamer' in self.tokenizer.__class__.__name__:
+            random_seq_gen = random_aptamers
+        elif 'Residue' in self.tokenizer.__class__.__name__:
+            random_seq_gen = random_proteins
+
+
         while len(self.seq_board) < self.max_size:
             print("stage", len(self.seq_board), "/", self.max_size)
-            if 'Aptamer' in self.tokenizer.__class__.__name__:
-                cur_sample = str(random_aptamers(1, self.max_len-2, self.max_len-2)[0])
-            elif 'Residue' in self.tokenizer.__class__.__name__:
-                cur_sample = str(random_proteins(1, self.max_len-2, self.max_len-2)[0])
+            cur_sample = str(random_seq_gen(1, self.max_len-2, self.max_len-2)[0])
             samples = np.array([cur_sample])
             rs = self.process_reward(self.seq_board, samples).tolist()
             
@@ -91,7 +94,7 @@ class RandHill(BaseAlgorithm):
                 if rs[best_ind] > cur_best:
                     cur_best = rs[best_ind]
                 else:
-                    cur_sample = str(random_aptamers(1, self.max_len-2, self.max_len-2)[0])
+                    cur_sample = str(random_seq_gen(1, self.max_len-2, self.max_len-2)[0])
                                     
             # top 1 metrics
             max_idx = np.argmax(rs)
