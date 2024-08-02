@@ -15,7 +15,7 @@ version: v1.0.0
 
 # Directories for loading and storing data
 data_dir: data/experiments
-exp_name: test
+exp_name: icml2024_active
 job_name: null
 timestamp: ${now:%Y-%m-%d_%H-%M-%S}
 log_dir: ${data_dir}/${exp_name}

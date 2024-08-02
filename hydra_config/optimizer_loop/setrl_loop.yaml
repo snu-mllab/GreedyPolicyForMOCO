@@ -1,0 +1,27 @@
+_target_: setbench.optimizers.multi_simple.setrl_loop.SetRLSeqLoop
+_recursive_: False
+num_rounds: 64
+random_action_prob: 0.0
+min_num_edits: 1
+num_initial_states: 1
+train_batch_size: 128
+num_opt_steps: 256
+pi_lr: 0.0001
+wd: 0.0001
+gen_clip: 10
+eval_freq: 64
+num_eval_samples: 32
+mlm_top_p: 1.0
+mlm_top_k: -1
+use_mlm_logits: False
+
+model:
+  _target_: setbench.models.cond_modules.set_cond_transformer.SetCondSeqTransformer
+  max_len: ${task.max_len}
+  num_hid: 64
+  num_layers: 3
+  num_head: 8
+  bidirectional: False
+  dropout: 0
+  use_cond: True
+  update_cond: True

@@ -1,0 +1,4 @@
+_target_: setbench.acquisitions.ehvi.UCBHVI
+num_samples: 2
+batch_size: ${task.batch_size}
+beta: 0.1

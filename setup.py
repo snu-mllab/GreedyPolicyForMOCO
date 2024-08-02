@@ -11,10 +11,10 @@ else:
     with open(os.path.join(_here, "README.md"), encoding="utf-8") as f:
         long_description = f.read()
 
-desc = "Code to reproduce experiments in the ICML 2024 submission."
+desc = 'Official PyTorch implementation of "Training Greedy Policy for Proposal Batch Selection in Expensive Multi-Objective Combinatorial Optimization", published at ICML24.'
 
 setup(
-    name="icml2024submission",
+    name="setbench",
     version="0.1.0",
     description=desc,
     long_description=long_description,

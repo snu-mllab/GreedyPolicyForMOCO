@@ -1,0 +1,7 @@
+_target_: setbench.optimizers.pymoo.ModelFreeGeneticOptimizer
+_recursive_: False
+num_rounds: 32
+num_gens: 2
+seed: ${seed}
+residue_sampler: uniform
+resampling_weight: 1.

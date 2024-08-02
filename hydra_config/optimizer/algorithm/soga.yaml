@@ -1,0 +1,17 @@
+_target_: pymoo.algorithms.soo.nonconvex.ga.GA
+pop_size: 16
+n_offsprings: null
+sampling:
+  _target_: setbench.optimizers.sampler.BatchSampler
+  batch_size: ${acquisition.batch_size}
+  max_num_edits: ${task.max_num_edits}
+crossover:
+  _target_: setbench.optimizers.crossover.BatchCrossover
+  prob: 0.25
+  prob_per_query: 0.25
+mutation:
+  _target_: setbench.optimizers.mutation.LocalMutation
+  prob: 1.
+  eta: 16
+  max_num_edits: ${task.max_num_edits}
+eliminate_duplicates: True

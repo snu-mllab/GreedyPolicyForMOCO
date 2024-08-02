@@ -1,0 +1,17 @@
+_target_: pymoo.algorithms.moo.nsga2.NSGA2
+pop_size: ${task.batch_size}
+n_offsprings: null
+sampling:
+  _target_: setbench.optimizers.sampler.CandidateSampler
+  max_num_edits: ${task.max_num_edits}
+crossover:
+  _target_: setbench.tools.pymoo_op.get_crossover
+  name: int_sbx
+  prob: 0.
+  eta: 16
+mutation:
+  _target_: setbench.optimizers.mutation.LocalMutation
+  prob: 1.
+  eta: 16
+  max_num_edits: ${task.max_num_edits}
+eliminate_duplicates: True
