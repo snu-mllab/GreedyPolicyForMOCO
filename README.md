@@ -22,17 +22,17 @@ Note. Ignore the version conflict related to protbuf.
 
 ## 1. Run Single-Round Experiments
 ### Arguments
-* task: name of task [`regex_2`, `regex`, `regex_4`, `nupack_energy_pins_pairs`]
-* tokenizer: name of tokenizer [`protein`, `aptamer`]
-* algorithm: name of algorithm [`setrl`, `moreinforce`, `greedyrl`, `rand_hill`, `rand_sample`]
-* max_size: `n`, the cardinality constraint for actual construction
+* `task`: name of task [`regex_2`, `regex`, `regex_4`, `nupack_energy_pins_pairs`]
+* `tokenizer`: name of tokenizer [`protein`, `aptamer`]
+* `algorithm`: name of algorithm [`setrl`, `moreinforce`, `greedyrl`, `rand_hill`, `rand_sample`]
+* `max_size`: `n`, the cardinality constraint for actual construction
 
-* train_steps: `N_u = 4000`, the number of update steps
-* batch_size: `N_e = 128`, the number of episodes per step
-* n_set_samples: `N_t = 4`, the frequency of updating behavior 
-* train_max_size: `n_train = 64`, the cardinality constraint for training
-* pi_lr : `eta`, learning rate [`1e-4`, `1e-5`, `1e-6`]
-* random_action_prob: random action prob [`0`, `0.05`]
+* `train_steps`: `N_u = 4000`, the number of update steps
+* `batch_size`: `N_e = 128`, the number of episodes per step
+* `n_set_samples`: `N_t = 4`, the frequency of updating behavior 
+* `train_max_size`: `n_train = 64`, the cardinality constraint for training
+* `pi_lr` : `eta`, learning rate [`1e-4`, `1e-5`, `1e-6`]
+* `random_action_prob`: random action prob [`0`, `0.05`]
 
 ### Commands
 Here, we introduce the commands to reproduce our experimental results in Table 1 as follows.
@@ -92,10 +92,10 @@ Note. Since we can reuse a set-conditioned rl agent or a preference-conditioned 
 Here, we introduce the commands to reproduce our experimental results in Figure 2, 3, and 4 as follows.
 
 ### Arguments
-* task: name of task [`regex`, `proxy_rfp`]
-* tokenizer: name of tokenizer [`protein`]
-* algorithm: name of algorithm [`setrl`, `lambo`, `mb_genetic`, `mf_genetic`]
-* acquisition: name of acquisition [`nehvi`, `ehvi`, `ucbhvi`]
+* `task`: name of task [`regex`, `proxy_rfp`]
+* `tokenizer`: name of tokenizer [`protein`]
+* `algorithm`: name of algorithm [`setrl`, `lambo`, `mb_genetic`, `mf_genetic`]
+* `acquisition`: name of acquisition [`nehvi`, `ehvi`, `ucbhvi`]
 
 * optimizer.use_mlm_logits: Set `True` for `Ours w/ MLM` [`True`, `False`] 
 
