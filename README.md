@@ -97,7 +97,7 @@ Here, we introduce the commands to reproduce our experimental results in Figure 
 * `algorithm`: name of algorithm [`setrl`, `lambo`, `mb_genetic`, `mf_genetic`]
 * `acquisition`: name of acquisition [`nehvi`, `ehvi`, `ucbhvi`]
 
-* optimizer.use_mlm_logits: Set `True` for `Ours w/ MLM` [`True`, `False`] 
+* `optimizer.use_mlm_logits`: Set `True` for `Ours w/ MLM` [`True`, `False`] 
 
 ### Commands
 To start, activate the installed environment by run ```conda activate setbench```.
