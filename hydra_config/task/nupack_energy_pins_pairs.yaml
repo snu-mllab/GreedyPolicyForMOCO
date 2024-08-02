@@ -1,0 +1,19 @@
+_target_: setbench.tasks.nupackt.NupackTask
+task_name: nupack_energy_pins_pairs
+objectives:
+  - energy
+  - pins
+  - pairs
+score_max:
+  - 60
+  - 8
+  - 16
+regex_list: !!null
+min_len: 30
+max_len: 60
+num_start_examples: 512
+batch_size: 16
+max_num_edits: 1
+max_ngram_size: 1
+allow_len_change: True
+max_score_per_dim: 16

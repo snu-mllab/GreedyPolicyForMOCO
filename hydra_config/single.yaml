@@ -1,0 +1,25 @@
+defaults:
+  - task: regex_4
+  - tokenizer: protein
+  - algorithm: setrl
+
+seed: ${trial_id}
+trial_id: 0
+project_name: setbench
+version: v0.1.0
+
+# Directories for loading and storing data
+data_dir: data/experiments
+exp_name: icml2024
+group_name: groupname
+exp_tags: []
+job_name: null
+timestamp: ${now:%Y-%m-%d_%H-%M-%S}
+log_dir: ${data_dir}/${exp_name}
+wandb_mode: disabled
+hydra:
+  run:
+    dir: ${log_dir}
+  sweep:
+    dir: ${log_dir}
+    subdir: .

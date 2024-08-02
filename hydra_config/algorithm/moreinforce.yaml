@@ -1,0 +1,49 @@
+_target_: setbench.algorithms.moreinforce.MOReinforce
+_recursive_: False
+random_action_prob: 0.01
+max_len: ${task.max_len}
+min_len: ${task.min_len}
+eval_metrics: ["hypervolume", "r2", "hsri"]
+batch_size: 128
+reward_min: 1e-80
+train_steps: 4000
+beta_use_therm: True
+pref_use_therm: True
+beta_cond: False
+pref_cond: True
+beta_scale: 1
+beta_shape: 32
+pref_alpha: 1.0
+pi_lr: 0.0001
+z_lr: 0.001
+wd: 0.0001
+beta_max: 32
+therm_n_bins: 50
+gen_clip: 10
+encoder_obj: mlm
+reward_type: tchebycheff
+sample_beta: 4
+simplex_bins: 10
+eval_freq: 500
+k: 10
+num_samples: 128
+state_save_path: "/home/deokjae/setbench/results_table1/"
+num_pareto_points: 500
+pareto_freq: 500
+use_tqdm: False
+loss_type: rl_norm
+max_size: -1
+
+model:
+  _target_: setbench.models.cond_modules.cond_transformer.CondTransformer
+  max_len: ${task.max_len}
+  vocab_size: 26
+  num_actions: 21
+  num_hid: 128
+  num_layers: 3
+  num_head: 8
+  bidirectional: False
+  dropout: 0
+  batch_size: 128
+  use_cond: True
+  update_cond: True

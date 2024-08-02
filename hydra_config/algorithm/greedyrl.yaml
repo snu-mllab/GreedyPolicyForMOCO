@@ -1,0 +1,32 @@
+_target_: setbench.algorithms.greedyrl.GreedyRL
+_recursive_: False
+random_action_prob: 0.01
+max_len: ${task.max_len}
+min_len: ${task.min_len}
+eval_metrics: ["hypervolume"]
+batch_size: 128
+train_steps: 5000
+pi_lr: 0.0001
+z_lr: 0.001
+wd: 0.0001
+gen_clip: 10
+loss_type: rl
+max_size: 50
+eval_freq: 500
+num_samples: 128
+state_save_path: "/home/deokjae/setbench/results_table1/"
+use_tqdm: False
+always_reinit: False
+model:
+  _target_: setbench.models.cond_modules.set_cond_transformer.SetCondTransformer
+  max_len: ${task.max_len}
+  vocab_size: 26
+  num_actions: 21
+  num_hid: 128
+  num_layers: 3
+  num_head: 8
+  bidirectional: False
+  dropout: 0
+  batch_size: 128
+  use_cond: False
+  update_cond: False

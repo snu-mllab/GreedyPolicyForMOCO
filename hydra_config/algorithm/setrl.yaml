@@ -1,0 +1,32 @@
+_target_: setbench.algorithms.setrl.SetRL
+_recursive_: False
+pi_lr: 0.0001
+train_steps: 4000
+batch_size: 128
+train_max_size: 64
+n_set_samples: 4
+max_size: 16
+random_action_prob: 0.0
+eval_freq: 500
+num_samples: 128
+
+max_len: ${task.max_len}
+min_len: ${task.min_len}
+eval_metrics: ["hypervolume"]
+z_lr: 0.001
+wd: 0.0001
+gen_clip: 10
+state_save_path: "put_path_here"
+model:
+  _target_: setbench.models.cond_modules.set_cond_transformer.SetCondTransformer
+  max_len: ${task.max_len}
+  vocab_size: 26
+  num_actions: 21
+  num_hid: 128
+  num_layers: 3
+  num_head: 8
+  bidirectional: False
+  dropout: 0
+  batch_size: 128
+  use_cond: True
+  update_cond: True
