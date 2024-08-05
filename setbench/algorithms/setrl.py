@@ -148,7 +148,7 @@ class SetRL(BaseAlgorithm):
         self.pad_tok = self.tokenizer.convert_token_to_id("[PAD]")
         self.max_size = [cfg.max_size] if cfg.max_size>0 else [4, 16, 64, 256]
 
-        if self.train_max_size not in self.max_size:
+        if cfg.max_size == -1 and self.train_max_size not in self.max_size:
             self.max_size.append(self.train_max_size)
 
         # Adapt model config to task
@@ -181,17 +181,22 @@ class SetRL(BaseAlgorithm):
             hv_dict[max_size] = hv
             samples_dict[max_size] = samples
             all_rews_dict[max_size] = all_rews
-
-            if max_size == self.train_max_size:
-                hv_train = hv
             
         self.update_state(dict(
             step=step,
             hv=hv_dict,
         ))
         self.save_state()
-        return hv_train
+        return hv_dict
 
+    def make_desc_str(self, hv_max, hv_dict, losses, rewards):
+        desc_str = "Eval. "
+        for ms in self.max_size:
+            hv = hv_dict[ms]
+            hvm = hv_max[ms]
+            desc_str += "HV-{}: {:.3f} ({:.3f}) ".format(ms, hv, hvm)
+        desc_str += "| Train := Loss: {:.3f} Rewards: {:.3e}".format(sum(losses[-10:]) / 10, sum(rewards[-10:]) / 10)
+        return desc_str
 
     def optimize(self, task, init_data=None):
         """
@@ -202,11 +207,11 @@ class SetRL(BaseAlgorithm):
         self.seq_board = SeqBoard(task_helper, self.obj_dim, self.max_size[0], task_max_len=self.max_len)
         losses, rewards = [], []
         pb = tqdm(range(self.train_steps)) 
-        desc_str = "Evaluation := HV: {:.3f} ({:.3f}) | Train := Loss: {:.3f} Rewards: {:.3e}"
 
-        hv = self.state_iter(task, 0)
-        hv_max = hv
-        pb.set_description(desc_str.format(hv, hv_max, sum(losses[-10:]) / 10, sum(rewards[-10:]) / 10))
+        hv_dict = self.state_iter(task, 0)
+        hv_max = {ms: hv_dict[ms] for ms in self.max_size} 
+
+        pb.set_description(self.make_desc_str(hv_max, hv_dict, losses, rewards))
 
         for i in pb:
             if i % self.n_set_samples == 0:
@@ -220,15 +225,23 @@ class SetRL(BaseAlgorithm):
             rewards.append(r)
             
             if i != 0 and i % self.eval_freq == self.eval_freq-1:
-                hv = self.state_iter(task, i+1)
-                if hv > hv_max:
-                    hv_max = hv
-            pb.set_description(desc_str.format(hv, hv_max, sum(losses[-10:]) / 10, sum(rewards[-10:]) / 10))
+                hv_dict = self.state_iter(task, i+1)
+                for ms in self.max_size:
+                    if hv_max[ms] < hv_dict[ms]:
+                        hv_max[ms] = hv_dict[ms]
+            pb.set_description(self.make_desc_str(hv_max, hv_dict, losses, rewards))
         
+        if self.cfg.max_size == -1:
+            print("===============================================================")
+            for ms in self.max_size:
+                print(f"constraint n : {ms}", f"hypervol : {hv_max[ms]}")
+            print("===============================================================")
+        
+        hv_ret = hv_max[self.cfg.max_size] if self.cfg.max_size > 0 else hv_max[self.train_max_size]
         return {
             'losses': losses,
             'train_rs': rewards,
-            'hypervol': hv
+            'hypervol': hv_ret,
         }
     
     def sample_multiple_batch(self, cardinalities):

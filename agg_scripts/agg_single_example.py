@@ -2,6 +2,10 @@ import pickle
 import gzip
 import numpy as np
 from collections import defaultdict
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--result_dir', type=str, default='/home/deokjae/GreedyPolicyForMOCO/results/table1_example/regex_4/')
+args = parser.parse_args()
 
 def load_state(path):
     with gzip.open(path, 'rb') as f:
@@ -20,11 +24,11 @@ n = 16
 print("TASK:", task)
 results = defaultdict(dict)
 
-result_dir = f'/home/deokjae/setbench/results_table1/{task}/'
+result_dir = args.result_dir
 
 # SetRL
-pi_lr = 1e-5
-rand = 0.05
+pi_lr = 0.0001
+rand = 0.0
 train_max_size = 64
 n_set_samples = 4
 
@@ -46,10 +50,10 @@ results[task][f'Ours'] = f"{best_hv:.3f} ({best_std:.3f})"
 for reward_type in ['tchebycheff', 'convex']:
     if reward_type == 'convex':
         pi_lr = 1e-5
-        rand = 0
+        rand = 0.0
     else:
-        pi_lr = 1e-4
-        rand = 0
+        pi_lr = 0.0001
+        rand = 0.0
 
     hvs = []
     for seed in range(10):
@@ -59,7 +63,7 @@ for reward_type in ['tchebycheff', 'convex']:
     best_hv = sum(hvs) / len(hvs)
     best_std = np.std(hvs)
 
-    print("PC-RL", n, "(reward_type)", pi_lr, rand)
+    print("PC-RL", n, f"({reward_type})", pi_lr, rand)
     print(f"{best_hv:.3f} ({best_std:.3f})")
     results[task]['PC-RL'+reward_type] = f"{best_hv:.3f} ({best_std:.3f})"
 
